@@ -177,8 +177,8 @@ public:
    * @returns SSH_AUTH_SUCCESS, SSH_AUTH_PARTIAL, SSH_AUTH_DENIED
    * @see ssh_userauth_autopubkey
    */
-  int userauthPublickeyAuto(void){
-    int ret=ssh_userauth_publickey_auto(c_session, NULL, NULL);
+  int userauthPublickeyAuto(const char *passphrase = NULL){
+    int ret=ssh_userauth_publickey_auto(c_session, NULL, passphrase);
     ssh_throw(ret);
     return ret;
   }
@@ -378,11 +378,13 @@ public:
     return_throwable;
   }
 
-private:
-  ssh_session c_session;
   ssh_session getCSession(){
     return c_session;
   }
+
+	
+private:
+  ssh_session c_session;
   /* No copy constructor, no = operator */
   Session(const Session &);
   Session& operator=(const Session &);
