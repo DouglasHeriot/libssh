@@ -42,24 +42,28 @@
 # define AES "aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc,"
 # define DES "3des-cbc"
 # define DES_SUPPORTED "3des-cbc,des-cbc-ssh1"
+
 #elif defined(HAVE_LIBCRYPTO)
+
 # ifdef HAVE_OPENSSL_BLOWFISH_H
 #  define BLOWFISH "blowfish-cbc,"
-# else
+# else /* HAVE_OPENSSL_BLOWFISH_H */
 #  define BLOWFISH ""
-# endif
+# endif /* HAVE_OPENSSL_BLOWFISH_H */
+
 # ifdef HAVE_OPENSSL_AES_H
 #  ifdef BROKEN_AES_CTR
 #   define AES "aes256-cbc,aes192-cbc,aes128-cbc,"
-#  else
+#  else /* BROKEN_AES_CTR */
 #   define AES "aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc,"
 #  endif /* BROKEN_AES_CTR */
-# else
+# else /* HAVE_OPENSSL_AES_H */
 #  define AES ""
-#  endif
+# endif /* HAVE_OPENSSL_AES_H */
+
 # define DES "3des-cbc"
 # define DES_SUPPORTED "3des-cbc,des-cbc-ssh1"
-#endif
+#endif /* HAVE_LIBCRYPTO */
 
 #ifdef WITH_ZLIB
 #define ZLIB "none,zlib,zlib@openssh.com"
@@ -90,8 +94,8 @@ static const char *default_methods[] = {
   HOSTKEYS,
   AES BLOWFISH DES,
   AES BLOWFISH DES,
-  "hmac-sha1,hmac-sha2-256,hmac-sha2-512",
-  "hmac-sha1,hmac-sha2-256,hmac-sha2-512",
+  "hmac-sha2-256,hmac-sha2-512,hmac-sha1",
+  "hmac-sha2-256,hmac-sha2-512,hmac-sha1",
   "none",
   "none",
   "",
@@ -105,8 +109,8 @@ static const char *supported_methods[] = {
   HOSTKEYS,
   AES BLOWFISH DES_SUPPORTED,
   AES BLOWFISH DES_SUPPORTED,
-  "hmac-sha1,hmac-sha2-256,hmac-sha2-512",
-  "hmac-sha1,hmac-sha2-256,hmac-sha2-512",
+  "hmac-sha2-256,hmac-sha2-512,hmac-sha1",
+  "hmac-sha2-256,hmac-sha2-512,hmac-sha1",
   ZLIB,
   ZLIB,
   "",
