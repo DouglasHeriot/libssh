@@ -75,6 +75,15 @@ if (libssh_threads_SRCS)
           DEFINE_SYMBOL
             LIBSSH_EXPORTS
     )
+    
+    if (APPLE)
+      set_target_properties(
+        ${LIBSSH_THREADS_SHARED_LIBRARY}
+          PROPERTIES
+            INSTALL_RPATH
+              "@loader_path"
+      )
+    endif()
 
     if (WITH_VISIBILITY_HIDDEN)
       set_target_properties(${LIBSSH_THREADS_SHARED_LIBRARY} PROPERTIES COMPILE_FLAGS "-fvisibility=hidden")
